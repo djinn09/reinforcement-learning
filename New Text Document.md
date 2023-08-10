@@ -31,13 +31,13 @@ Since it is a model-free algorithm, Q-Learning does not need any space to store 
 
 **SARSA**
 
-[SARSA](https://analyticsindiamag.com/a-complete-intution-on-sarsa-algorithm/), or State Action Reward State Action, is similar to Q-Learning but the key difference is that it is an on-policy algorithm, and is often denoted as the ‘on-policy Q-learning’. This implies that through this algorithm, Q-value is derived from the action performed by current policy, which is in contrast to Q-learning algorithm that has no constraint over the next action.
+[SARSA](https://analyticsindiamag.com/a-complete-intution-on-sarsa-algorithm/), or State Action Reward State Action, is similar to Q-Learning but the key difference is that it is an on-policy algorithm, and is often denoted as the ‘on-policy Q-learning’. This implies that through this algorithm, Q-value is derived from the action performed by the current policy, which is in contrast to the Q-learning algorithm that has no constraint over the next action.
 
 The abbreviated name, SARSA, denotes a sequence that the algorithm starts in a state (S), takes action (A), and then the reward is generated (R). This updates the Q-function (value).
 
 **Q(s,a) ← Q(s, a) + α(r + γ Q(s’, a’) — Q(s, a))**
 
-Now, these obtained Q-values are stored in a table and the one with the highest values is chosen by the policy by observing its current state, leading to a new state, and it continues on for next states. Q-values keep getting updated till we find a good policy. But it is constrained by a single policy, thus Q-learning offers more scope for value selection.
+Now, these obtained Q-values are stored in a table and the one with the highest values is chosen by the policy by observing its current state, leading to a new state, and it continues on for the following conditions. Q-values keep getting updated till we find a good policy. But it is constrained by a single policy, thus Q-learning offers more scope for value selection.
 
 Both Q-learning and SARSA are tabular methods and, due to vast memory consumption and failure to visit all states and actions while training, do not scale well for large state and action spaces. This is where neural networks come in.
 
@@ -51,20 +51,20 @@ The neural network is trained based on the Q-learning update equation:
 
 The standard Q-learning technique finds the optimal values, which are the highest rewards, and then developers decide the optimal function. DQN allows direct approximation of the optimal value using two essential techniques:
 
-1. **Experience Relay**: To solve the problem of high correlation and less data efficiency, experience relay allows the sample transitions (moves from one state to another by actions) to be stored. This allows detection of trends, which are then randomly selected from the pool to update the knowledge.  
-1. **Target Networks**: These help determine if the output reward is already not the best one. This is achieved by going back to the last updated output and considering Q-values as the target.
+1. **Experience Relay**: To solve the problem of high correlation and less data efficiency, experience relay allows the sample transitions (moves from one state to another by actions) to be stored. This allows the detection of trends, which are then randomly selected from the pool to update the knowledge.  
+1. **Target Networks**: This help determine if the output reward is not already the best one. This is achieved by going back to the last updated output and considering Q-values as the target.
 
 **Deep deterministic policy gradient (DDPG)**
 
-The methods so far cover discrete action spaces with a fixed number of actions. But when the action space is continuous, tabular and neural network based Q-learning algorithms fall short because finding the action that leads to the highest reward is challenging, if not impossible. DDPG is then considered a breakthrough.
+The methods so far cover discrete action spaces with a fixed number of actions. But when the action space is continuous, tabular and neural network-based Q-learning algorithms fall short because finding the action that leads to the highest reward is challenging, if not impossible. DDPG is then considered a breakthrough.
 
-DDPG is an actor-critic algorithm that also uses a neural network to approximate both the policy and the value function. It is particularly well-suited for continuous action spaces. DDPG also borrows the ideas of target network and experience replay from DQN.
+DDPG is an actor-critic algorithm that also uses a neural network to approximate both the policy and the value function. It is particularly well-suited for continuous action spaces. DDPG also borrows the ideas of the target network and experiences replay from DQN.
 
 ### **Q\_θ(s, a) ← Q\_θ(s, a) + α((r + γ Qₜₐᵣ(s’, μₜₐᵣ(s’))) — Q\_θ(s,a))**
 
 Instead of manually searching the best state–action pair and the Q-value, another neural network is introduced that learns the approximate maximiser and calculates the target. Here, μₜₐᵣ determines the best action that uses a slightly older version of the network.
 
-### TRPO and PPO
+**TRPO and PPO**
 
 **Trust Region Policy Optimization (TRPO)** and **Proximal Policy Optimization (PPO)** are both on-policy algorithms that use a neural network to approximate the policy. TRPO uses a trust region method to ensure that the policy update is “conservative” while PPO uses a “clipped” objective function to ensure that the update is not too far from the current policy. Both algorithms are able to handle large, high-dimensional state spaces and continuous action spaces.
 
